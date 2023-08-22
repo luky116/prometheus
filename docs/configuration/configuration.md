@@ -61,6 +61,12 @@ global:
   # How long until a scrape request times out.
   [ scrape_timeout: <duration> | default = 10s ]
 
+  # The protocols to negotiate during a scrape with the client.
+  # Supported values (case insensitive): PrometheusProto, OpenMetricsText, PrometheusText.
+  # The default value changes to [ PrometheusProto, OpenMetricsText, PrometheusText ]
+  # when native_histogram feature flag is set.
+  [ scrape_protocols: [<string>, ...] | default = [ OpenMetricsText, PrometheusText ] ]
+
   # How frequently to evaluate rules.
   [ evaluation_interval: <duration> | default = 1m ]
 
@@ -171,6 +177,10 @@ job_name: <job_name>
 # Per-scrape timeout when scraping this job.
 [ scrape_timeout: <duration> | default = <global_config.scrape_timeout> ]
 
+# The protocols to negotiate during a scrape with the client.
+# Supported values (case insensitive): PrometheusProto, OpenMetricsText, PrometheusText.
+[ scrape_protocols: [<string>, ...] | default = <global_config.scrape_protocols> ]
+            
 # Whether to scrape a classic histogram that is also exposed as a native
 # histogram (has no effect without --enable-feature=native-histograms).
 [ scrape_classic_histograms: <boolean> | default = false ]
